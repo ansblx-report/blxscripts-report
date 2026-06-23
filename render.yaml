@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: anti-script-blx
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: WEB_HOST
+        value: 0.0.0.0
+      - key: SUPABASE_STORAGE_BUCKET
+        value: evidencia
+      - key: USER_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

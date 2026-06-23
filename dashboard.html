@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Script Extremo — Centro de Control de Moderación</title>
+    <!-- Google Fonts: Rubik (Headers Fandom) & Inter (UI details) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================================
+           SISTEMA DE DISEÑO — ESTILO BLOX FRUITS WIKI FANDOM
+           ============================================================ */
+        :root {
+            --bg-base: #141414; /* Fondo Oscuro Fandom */
+            --bg-surface: #282828; /* Superficie Fandom */
+            --bg-card: rgba(40, 40, 40, 0.85); /* Tarjetas Fandom */
+            --border-color: #585858; /* Bordes Fandom */
+            --border-hover: #d6ad0b; /* Borde Amarillo Fandom */
+            
+            --color-text-main: #ffffff;
+            --color-text-muted: #c0c0c0;
+            
+            --color-primary: #d6ad0b; /* Amarillo Fandom Fijo */
+            --color-primary-glow: rgba(214, 173, 11, 0.35);
+            --color-primary-light: #f6d450; /* Amarillo Claro Hover */
+            
+            --color-success: #0d8636; /* Verde Fandom */
+            --color-success-glow: rgba(13, 134, 54, 0.3);
+            
+            --color-warning: #cf721c; /* Naranja Fandom */
+            --color-warning-glow: rgba(207, 114, 28, 0.3);
+            
+            --color-danger: #ec001c; /* Rojo Fandom */
+            --color-danger-glow: rgba(236, 0, 28, 0.3);
+            
+            --color-neon-cyan: #06b6d4;
+            --color-neon-cyan-glow: rgba(6, 182, 212, 0.3);
+            
+            --glass-blur: blur(8px);
+            --border-radius-lg: 8px; /* Bordes Fandom sutiles */
+            --border-radius-md: 4px;
+            --transition-smooth: all 0.2s ease-in-out;
+
+            /* --- VARIABLES OFICIALES BLOX FRUITS WIKI FANDOM --- */
+            --bfw-tsh: 1.5px 0px black, -1.5px 0px black, 0px 1.5px black, 0px -1.5px black, 1.5px 1.5px black, -1.5px 1.5px black, -1.5px -1.5px black, 1.5px -1.5px black, 1.5px 1px black, -1.5px 1px black, 1.5px -1px black, -1.5px -1px black, -1px -1.5px black, 1px -1.5px black, -1px 1.5px black, 1px 1.5px black, -1.5px 3px black, -1px 3px black, 0px 3px black, 1px 3px black, 1.5px 3px black;
+            --Tsh: 1px 1px 1px black, -1px 1px 1px black, 1px -1px 1px black, -1px -1px 1px black;
+            
+            --GibMemes1-color: linear-gradient(120deg, #CC6600 25%, #FFFFCC);
+            --RetrofittedCalipers-color: linear-gradient(30deg, #ffffff, #77c5ff, #0092ff);
+            --SyTex_LG-color: linear-gradient(340deg, #a6b1e0, #bfcbff);
+
+            --main-bxsh: inset 0 0 5px 0 #ffe00059, 0 6px 20px 2px #ffe0001a;
+            --main-bd: 1px solid #ffe00059;
+            --main-bd-c: #d5ac04;
+            --main-bg: linear-gradient(#7c611db3, #20201B, #1a1a1ae6);
+            --main-c: white;
+            --inverse-text: #ffffff;
+            --color-grey: #d6ad0b;
+            --color-grey-hover: #f6d450;
+            --background-primary: #232225;
+            --bd-first: 2px solid #737878;
+            --background-gradient: linear-gradient(to right, #555555 20%, #3a3a3a 100%);
+            --theme-page: #121214;
+            --header-gradient: linear-gradient(90deg, #e1a937, #EAD939, #e1a937);
+            --header-shadow: #000000;
+            --main-bg-page: linear-gradient(#171815, #12130b);
+            --edit-bookmark: #171815;
+            
+            --tbl-Primary: #252427;
+            --tbl-Secondary: #39393D;
+            --tbl-Tertiary: #1C1C1C;
+            --tbl-Line: solid #3B3B3B;
+            --clr-tbl-Line: solid #3B3B3B;
+            --clr-tbl: solid #8a8a8a59 2px;
+            --Dropshadow-ds: drop-shadow(0px 0px 3px #d6ad0b);
+            --text: 1px 1px 1px black, -1px 1px 1px black, 1px -1px 1px black, -1px -1px 1px black;
+
+            --Common-c: #B3B3B3;
+            --Uncommon-c: #5c8cd3;
+            --Rare-c: #8c52ff;
+            --Legendary-c: #d52be4;
+            --Mythical-c: #ee2f32;
+            --Premium-c: #b8a32e;
+
+            --infobox-bg: #424242;
+            --event-shop-item-name-bg-color: #36454F;
+            --event-shop-item-name-bd-color: #7d7f96;
+            --event-shop-item-bg-color: #3a3333;
+            --event-shop-item-bd-color: #967d7d;
+
+            --bfw-btn-bg: linear-gradient(#fdf159 50%, #fad536 50%);
+            --bfw-btn-bg-hover: linear-gradient(#fff157 50%, #b39622 50%);
+            --bfw-btn-bg-active: linear-gradient(#fff157 50%, #ffe36f 50%);
+            --bfw-btn-bxsh: #fad536;
+            --bfw-btn-bd: 2px solid #6d4300;
+
+            --bfw-table-bd: #000000;
+            --bfw-table-bg: #252621;
+            --bfw-table-cell-bg: #383935;
+            --bfw-table-cell-c: #e1e1e1;
+
+            --update-log-bg: #121415;
+            --update-log-title-bg: linear-gradient(to right, #252621, #484848, #252621);
+            --upgrading-eff-bg: linear-gradient(to right, #00000001, #e3b42d55, #00000001);
+            --upgrading-eff-c: #ffc500;
+
+            /* Fondos y Efectos de Rarezas */
+            --Common-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/2/2c/Card_Common.png);
+            --Uncommon-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a9/Card_Uncommon.png);
+            --Rare-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/5/58/Card_Rare.png);
+            --Legendary-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b1/Card_Legendary.png);
+            --Mythical-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/a/a7/Card_Mythical.png);
+            --Premium-card-bg: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b4/Card_Premium.png);
+
+            --Common-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/b/b8/Card_Common_Hover.png);
+            --Uncommon-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/8/89/Card_Uncommon_Hover.png);
+            --Rare-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/5/5f/Card_Rare_Hover.png);
+            --Legendary-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/2/27/Card_Legendary_Hover.png);
+            --Mythical-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/f/f4/Card_Mythical_Hover.png);
+            --Premium-card-bg-hover: url(https://static.wikia.nocookie.net/roblox-blox-piece/images/f/fd/Card_Premium_Hover.png);
+
+            --Common-fil: #B3B3B340;
+            --Uncommon-fil: #4FC8DF40;
+            --Rare-fil: #8B55FB40;
+            --Legendary-fil: #D12DDF40;
+            --Mythical-fil: #EA313140;
+            --Premium-fil: #DEC22740;
+
+            --Common-bd: #b3b3b3;
+            --Uncommon-bd: #4fc8df;
+            --Rare-bd: #895bff;
+            --Legendary-bd: #d52be4;
+            --Mythical-bd: #ee2f32;
+            --Premium-bd: #dbbc00;
+
+            --Common-bg: #9e9e9e, #696969;
+            --Uncommon-bg: #3eaacf, #18698b;
+            --Rare-bg: #7b48e1, #5e37ac;
+            --Legendary-bg: #bc26c9, #951196;
+            --Mythical-bg: #d2292c, #a12022;
+            --Premium-bg: #c5a700, #957f00;
+
+            --Common-bxsh: #3d3e3e;
+            --Uncommon-bxsh: #0c425a;
+            --Rare-bxsh: #301d5a;
+            --Legendary-bxsh: #4a0f53;
+            --Mythical-bxsh: #7d1517;
+            --Premium-bxsh: #60560d;
+
+            --Common-bd-hover: #dedede;
+            --Uncommon-bd-hover: #70ebf6;
+            --Rare-bd-hover: #b981ff;
+            --Legendary-bd-hover: #fb8cfe;
+            --Mythical-bd-hover: #fe5f64;
+            --Premium-bd-hover: #fcef07;
+
+            --Common-bg-hover: #b2b2b2, #8e8e8e;
+            --Uncommon-bg-hover: #4ac9e4, #2598be;
+            --Rare-bg-hover: #a46deb, #6c2dcf;
+            --Legendary-bg-hover: #ef42ef, #c71bc9;
+            --Mythical-bg-hover: #f26a6e, #cc2527;
+            --Premium-bg-hover: #e3c20b, #d4b301;
+        }
+
+        /* ============================================================
+           RESET & ESTILOS BÁSICOS CON FONDO WIKI
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', helvetica, arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            /* Gradiente oscuro + Textura original de la Wiki de Blox Fruits */
+            background-image: 
+                linear-gradient(rgba(20, 20, 20, 0.82), rgba(20, 20, 20, 0.88)),
+                url('https://static.wikia.nocookie.net/roblox-blox-piece/images/0/08/Site-background-dark/revision/latest?cb=20250418215941');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: repeat-y;
+            background-attachment: fixed;
+            color: var(--color-text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-rubik {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 900;
+            text-shadow: var(--bfw-tsh);
+            color: #ffffff;
+        }
+
+        /* Scrollbar estilo Fandom */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3e3e3e;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-primary);
+        }
+
+        /* ============================================================
+           DISEÑO DE CONTENEDORES (HEADER & MAIN)
+           ============================================================ */
+        header {
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 2px solid var(--border-color);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo h1 {
+            font-size: 1.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        .status-badge {
+            background: rgba(13, 134, 54, 0.15);
+            border: 1px solid var(--color-success);
+            color: #7de898;
+            padding: 5px 12px;
+            border-radius: var(--border-radius-md);
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-success);
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 8px var(--color-success); }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        main {
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            flex-grow: 1;
+        }
+
+        /* ============================================================
+           CARDS DE MÉTRICAS (ESTILO CAJAS FANDOM)
+           ============================================================ */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .metric-info h3 {
+            font-size: 0.85em;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .metric-info .number {
+            font-size: 2em;
+            font-weight: 800;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .metric-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+        }
+
+        /* Variantes de colores para métricas Fandom */
+        .metric-total { border-left: 4px solid var(--color-primary); }
+        .metric-total .metric-icon { background: rgba(214, 173, 11, 0.1); color: var(--color-primary); }
+        .metric-total .number { color: var(--color-primary-light); }
+        
+        .metric-verified { border-left: 4px solid var(--color-success); }
+        .metric-verified .metric-icon { background: rgba(13, 134, 54, 0.1); color: var(--color-success); }
+        .metric-verified .number { color: var(--color-success); }
+        
+        .metric-nickname { border-left: 4px solid var(--color-warning); }
+        .metric-nickname .metric-icon { background: rgba(207, 114, 28, 0.1); color: var(--color-warning); }
+        .metric-nickname .number { color: var(--color-warning); }
+        
+        .metric-channels { border-left: 4px solid var(--color-neon-cyan); }
+        .metric-channels .metric-icon { background: rgba(6, 182, 212, 0.1); color: var(--color-neon-cyan); }
+        .metric-channels .number { color: #06b6d4; }
+
+        /* ============================================================
+           SECCIÓN DE CONTENIDO A DOBLE COLUMNA
+           ============================================================ */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media (max-width: 1200px) {
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           SECCIÓN IZQUIERDA: REPORTES, BUSCADOR & FILTROS
+           ============================================================ */
+        .reports-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Panel de búsqueda y filtrado */
+        .filter-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-wrapper {
+            flex-grow: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--color-text-main);
+            padding: 11px 16px 11px 36px;
+            border-radius: var(--border-radius-md);
+            outline: none;
+            transition: var(--transition-smooth);
+            font-size: 0.9em;
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary-glow);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            pointer-events: none;
+            font-size: 0.9em;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .select-filter {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--color-text-main);
+            padding: 11px 14px;
+            border-radius: var(--border-radius-md);
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.85em;
+            min-width: 150px;
+        }
+
+        .select-filter:focus {
+            border-color: var(--color-primary);
+        }
+
+        .btn-clear {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--color-text-main);
+            padding: 11px 16px;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            font-size: 0.85em;
+        }
+
+        .btn-clear:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #888;
+        }
+
+        /* Grid de tarjetas de reporte */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .report-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 14px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .report-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Borde indicador estilo Wiki */
+        .report-card.verified {
+            background-image: linear-gradient(rgba(30, 20, 5, 0.85), rgba(20, 20, 20, 0.9)), var(--Premium-card-bg);
+            background-size: cover;
+            border: var(--main-bd);
+            box-shadow: var(--main-bxsh);
+            border-top: 4px solid var(--Premium-bd);
+        }
+        .report-card.verified:hover {
+            background-image: linear-gradient(rgba(30, 20, 5, 0.75), rgba(20, 20, 20, 0.85)), var(--Premium-card-bg-hover);
+            border-color: var(--Premium-bd-hover);
+            box-shadow: inset 0 0 8px 0 #ffe0007f, 0 8px 24px 4px #ffe00033;
+        }
+
+        .report-card.unverified {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--Common-bd);
+        }
+
+        /* Estilos específicos de Rarezas para tarjetas no verificadas */
+        .report-card.unverified.rarity-common {
+            background-image: linear-gradient(rgba(20, 20, 20, 0.85), rgba(20, 20, 20, 0.9)), var(--Common-card-bg);
+            background-size: cover;
+            border-color: var(--Common-bd);
+            border-top: 4px solid var(--Common-bd);
+        }
+        .report-card.unverified.rarity-common:hover {
+            background-image: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.85)), var(--Common-card-bg-hover);
+            border-color: var(--Common-bd-hover);
+        }
+
+        .report-card.unverified.rarity-uncommon {
+            background-image: linear-gradient(rgba(10, 20, 25, 0.85), rgba(20, 20, 20, 0.9)), var(--Uncommon-card-bg);
+            background-size: cover;
+            border-color: var(--Uncommon-bd);
+            border-top: 4px solid var(--Uncommon-bd);
+        }
+        .report-card.unverified.rarity-uncommon:hover {
+            background-image: linear-gradient(rgba(10, 20, 25, 0.8), rgba(20, 20, 20, 0.85)), var(--Uncommon-card-bg-hover);
+            border-color: var(--Uncommon-bd-hover);
+        }
+
+        .report-card.unverified.rarity-rare {
+            background-image: linear-gradient(rgba(20, 10, 25, 0.85), rgba(20, 20, 20, 0.9)), var(--Rare-card-bg);
+            background-size: cover;
+            border-color: var(--Rare-bd);
+            border-top: 4px solid var(--Rare-bd);
+        }
+        .report-card.unverified.rarity-rare:hover {
+            background-image: linear-gradient(rgba(20, 10, 25, 0.8), rgba(20, 20, 20, 0.85)), var(--Rare-card-bg-hover);
+            border-color: var(--Rare-bd-hover);
+        }
+
+        .report-card.unverified.rarity-legendary {
+            background-image: linear-gradient(rgba(25, 10, 25, 0.85), rgba(20, 20, 20, 0.9)), var(--Legendary-card-bg);
+            background-size: cover;
+            border-color: var(--Legendary-bd);
+            border-top: 4px solid var(--Legendary-bd);
+        }
+        .report-card.unverified.rarity-legendary:hover {
+            background-image: linear-gradient(rgba(25, 10, 25, 0.8), rgba(20, 20, 20, 0.85)), var(--Legendary-card-bg-hover);
+            border-color: var(--Legendary-bd-hover);
+        }
+
+        .report-card.unverified.rarity-mythical {
+            background-image: linear-gradient(rgba(25, 10, 10, 0.85), rgba(20, 20, 20, 0.9)), var(--Mythical-card-bg);
+            background-size: cover;
+            border-color: var(--Mythical-bd);
+            border-top: 4px solid var(--Mythical-bd);
+        }
+        .report-card.unverified.rarity-mythical:hover {
+            background-image: linear-gradient(rgba(25, 10, 10, 0.8), rgba(20, 20, 20, 0.85)), var(--Mythical-card-bg-hover);
+            border-color: var(--Mythical-bd-hover);
+        }
+
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .suspect-name {
+            font-size: 1.25em;
+            color: var(--color-text-main);
+            word-break: break-all;
+            margin-bottom: 2px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            text-shadow: var(--Tsh);
+        }
+
+        .suspect-name a {
+            color: var(--color-primary-light);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .suspect-name a:hover {
+            color: #ffffff;
+            text-shadow: var(--Tsh);
+        }
+
+        .roblox-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .report-card.verified .roblox-avatar {
+            border-color: var(--color-primary);
+        }
+
+        .verification-badge {
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .verification-badge.verified {
+            background: rgba(13, 134, 54, 0.15);
+            color: #7de898;
+            border: 1px solid var(--color-success);
+        }
+
+        .verification-badge.unverified {
+            background: rgba(207, 114, 28, 0.15);
+            color: #ffaa66;
+            border: 1px solid var(--color-warning);
+        }
+
+        .cheat-badge {
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            align-self: flex-start;
+            font-family: 'Rubik', sans-serif;
+            text-shadow: var(--Tsh);
+            color: #ffffff;
+            border: 1px solid transparent;
+        }
+
+        .cheat-badge.rarity-common {
+            background: linear-gradient(135deg, #9e9e9e, #696969);
+            border-color: var(--Common-bd);
+        }
+        .cheat-badge.rarity-uncommon {
+            background: linear-gradient(135deg, #3eaacf, #18698b);
+            border-color: var(--Uncommon-bd);
+        }
+        .cheat-badge.rarity-rare {
+            background: linear-gradient(135deg, #7b48e1, #5e37ac);
+            border-color: var(--Rare-bd);
+        }
+        .cheat-badge.rarity-legendary {
+            background: linear-gradient(135deg, #bc26c9, #951196);
+            border-color: var(--Legendary-bd);
+        }
+        .cheat-badge.rarity-mythical {
+            background: linear-gradient(135deg, #d2292c, #a12022);
+            border-color: var(--Mythical-bd);
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .report-details {
+            font-size: 0.88em;
+            color: #dddddd;
+            line-height: 1.45;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .card-meta {
+            font-size: 0.78em;
+            color: #aaaaaa;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 10px;
+        }
+
+        .meta-item strong {
+            color: var(--color-text-main);
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        /* BOTONES AMARILLOS FANDOM */
+        .btn-action {
+            background: var(--bfw-btn-bg);
+            color: #ffffff;
+            text-shadow: var(--Tsh);
+            border: var(--bfw-btn-bd);
+            box-shadow: 0 3px 0 #6d4300;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background: var(--bfw-btn-bg-hover);
+            color: #ffffff;
+            box-shadow: 0 3px 0 #6d4300;
+            transform: translateY(-1px);
+        }
+
+        .btn-action:active {
+            background: var(--bfw-btn-bg-active);
+            box-shadow: 0 1px 0 #6d4300;
+            transform: translateY(2px);
+        }
+
+        .btn-action.btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--color-primary-light);
+            text-shadow: none;
+            box-shadow: none;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-action.btn-secondary:hover {
+            background: rgba(214, 173, 11, 0.12);
+            border-color: var(--color-primary);
+            color: #ffffff;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-action.btn-warning-outline {
+            background: rgba(207, 114, 28, 0.05);
+            border: 1px solid rgba(207, 114, 28, 0.4);
+            color: #ffaa66;
+            padding: 8px 14px;
+            font-size: 0.8em;
+        }
+
+        .btn-action.btn-warning-outline:hover {
+            background: rgba(207, 114, 28, 0.15);
+            border-color: var(--color-warning);
+            color: #ffbb88;
+            box-shadow: 0 0 8px rgba(207, 114, 28, 0.25);
+        }
+
+        .btn-action.btn-danger-outline {
+            background: rgba(236, 0, 28, 0.05);
+            border: 1px solid rgba(236, 0, 28, 0.4);
+            color: #ff6b7b;
+            padding: 8px 14px;
+            font-size: 0.8em;
+        }
+
+        .btn-action.btn-danger-outline:hover {
+            background: rgba(236, 0, 28, 0.15);
+            border-color: var(--color-danger);
+            color: #ff8894;
+            box-shadow: 0 0 8px rgba(236, 0, 28, 0.25);
+        }
+
+        /* Mensaje de carga o sin resultados */
+        .empty-state {
+            grid-column: 1 / -1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--color-text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .empty-state-icon {
+            font-size: 2.5em;
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ============================================================
+           SECCIÓN DERECHA: PANEL DE CONFIGURACIÓN
+           ============================================================ */
+        .config-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 90px;
+        }
+
+        .config-panel h2 {
+            font-size: 1.3em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            color: var(--color-primary-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-text {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            color: var(--color-text-main);
+            padding: 10px 12px;
+            border-radius: var(--border-radius-md);
+            outline: none;
+            transition: var(--transition-smooth);
+            font-size: 0.85em;
+        }
+
+        .input-text:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 6px var(--color-primary-glow);
+        }
+
+        /* Botón de Enviar Amarillo estilo Fandom 3D */
+        .btn-submit {
+            background: var(--bfw-btn-bg);
+            color: #ffffff;
+            text-shadow: var(--Tsh);
+            border: var(--bfw-btn-bd);
+            box-shadow: 0 3px 0 #6d4300;
+            padding: 11px;
+            border-radius: 6px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background 0.2s ease;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-submit:hover {
+            background: var(--bfw-btn-bg-hover);
+            color: #ffffff;
+            box-shadow: 0 3px 0 #6d4300;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            background: var(--bfw-btn-bg-active);
+            box-shadow: 0 1px 0 #6d4300;
+            transform: translateY(2px);
+        }
+
+        /* Lista de canales monitoreados */
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .channel-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 10px 12px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82em;
+        }
+
+        .channel-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .channel-name {
+            font-weight: 700;
+            color: var(--color-primary-light);
+        }
+
+        .channel-server {
+            color: #888888;
+            font-size: 0.9em;
+        }
+
+        .btn-delete-channel {
+            background: transparent;
+            border: none;
+            color: var(--color-danger);
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-delete-channel:hover {
+            background: rgba(236, 0, 28, 0.1);
+        }
+
+        /* Petición de escaneo histórico manual */
+        .manual-scan-box {
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ============================================================
+           MODAL DE EVIDENCIA (VISOR DE MULTIMEDIA)
+           ============================================================ */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-color);
+            max-width: 900px;
+            width: 90%;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            position: relative;
+            transform: scale(0.95);
+            transition: var(--transition-smooth);
+        }
+
+        .modal.open .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header h3 {
+            font-size: 1.2em;
+            color: var(--color-primary-light);
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+        }
+
+        .modal-body {
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0c0c0c;
+            min-height: 350px;
+            max-height: 60vh;
+        }
+
+        .modal-body img, .modal-body video {
+            max-width: 100%;
+            max-height: 55vh;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-meta-info {
+            font-size: 0.85em;
+            color: #aaaaaa;
+        }
+
+        /* ============================================================
+           SISTEMA DE PESTAÑAS (TABS)
+           ============================================================ */
+        .tabs-container {
+            display: flex;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            padding: 16px;
+            font-size: 1em;
+            font-weight: 700;
+            font-family: 'Rubik', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-button:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tab-button.active {
+            color: var(--color-primary-light);
+            background: rgba(214, 173, 11, 0.08);
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        /* ============================================================
+           ESTILOS PARA REPORTE MANUAL
+           ============================================================ */
+        .manual-report-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 32px;
+            width: 100%;
+        }
+
+        .manual-report-container h2 {
+            font-size: 1.6em;
+            color: var(--color-primary-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-desc {
+            color: var(--color-text-muted);
+            font-size: 0.9em;
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-left, .form-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-tip {
+            font-size: 0.78em;
+            color: #888888;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Drag & Drop Zone */
+        .drag-drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius-lg);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 220px;
+        }
+
+        .drag-drop-zone.dragover, .drag-drop-zone:hover {
+            border-color: var(--color-primary);
+            background: rgba(214, 173, 11, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 2.8em;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .drag-drop-title {
+            font-size: 1em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .drag-drop-info {
+            font-size: 0.85em;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+        }
+
+        .drag-drop-warning {
+            font-size: 0.82em;
+            color: #ffaa66;
+            font-weight: 600;
+        }
+
+        /* File Preview */
+        .file-preview-container {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 16px;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        #preview-filename {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--color-primary-light);
+            word-break: break-all;
+        }
+
+        #preview-media-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            min-height: 180px;
+            max-height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #preview-media-wrapper img, #preview-media-wrapper video {
+            max-width: 100%;
+            max-height: 290px;
+            object-fit: contain;
+        }
+
+        /* ============================================================
+           ESTILOS PARA SECCIÓN DE REGLAS
+           ============================================================ */
+        .rules-scroll-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            position: relative;
+            background-image: radial-gradient(rgba(0, 0, 0, 0.3) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .rules-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .rules-header h2 {
+            font-size: 1.8em;
+            color: var(--color-primary-light);
+            text-shadow: 0 0 10px var(--color-primary-glow);
+            letter-spacing: 1px;
+        }
+
+        .rules-divider {
+            height: 2px;
+            width: 120px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            margin: 12px auto 0 auto;
+        }
+
+        .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-smooth);
+        }
+
+        .rule-item:hover {
+            border-color: rgba(214, 173, 11, 0.3);
+            transform: translateX(4px);
+        }
+
+        .rule-num {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--color-primary);
+            width: 50px;
+            text-align: center;
+            flex-shrink: 0;
+            line-height: 1;
+            text-shadow: 0 0 8px var(--color-primary-glow);
+        }
+
+        .rule-body h3 {
+            font-size: 1.1em;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .rule-body p {
+            font-size: 0.9em;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <div class="header-logo">
+            <h1>🛡️ ANTI-SCRIPT EXTREMO</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <span id="user-display-name" style="font-size: 0.9em; font-weight: 700; color: var(--color-primary-light);"></span>
+            <button class="btn-action" id="btn-open-login" style="font-size: 0.85em; padding: 8px 16px;">🔐 Iniciar Sesión</button>
+            <button class="btn-action btn-secondary" id="btn-logout" style="font-size: 0.85em; padding: 8px 16px; display: none;">🔓 Cerrar Sesión</button>
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                Selfbot Activo
+            </div>
+        </div>
+    </header>
+
+    <!-- CUERPO PRINCIPAL -->
+    <main>
+        
+        <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('tab-dashboard')">📊 Dashboard de Reportes</button>
+            <button class="tab-button" onclick="switchTab('tab-reportar')">📝 Reportar Sospechoso</button>
+            <button class="tab-button" onclick="switchTab('tab-reglas')">📜 Reglas del Gremio</button>
+        </div>
+
+        <!-- PESTAÑA 1: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-content">
+            
+            <!-- MIGRACIÓN DE MÉTRICAS -->
+            <section class="metrics-grid" style="margin-bottom: 24px;">
+                <div class="metric-card metric-total">
+                    <div class="metric-info">
+                        <h3>Total Reportes</h3>
+                        <div class="number" id="stat-total">0</div>
+                    </div>
+                    <div class="metric-icon">🚨</div>
+                </div>
+                <div class="metric-card metric-verified">
+                    <div class="metric-info">
+                        <h3>Sospechosos Verificados</h3>
+                        <div class="number" id="stat-verified">0</div>
+                    </div>
+                    <div class="metric-icon">👤</div>
+                </div>
+                <div class="metric-card metric-nickname">
+                    <div class="metric-info">
+                        <h3>Apodos / Sin Verif.</h3>
+                        <div class="number" id="stat-nicknames">0</div>
+                    </div>
+                    <div class="metric-icon">⚠️</div>
+                </div>
+                <div class="metric-card metric-channels">
+                    <div class="metric-info">
+                        <h3>Canales de Monitoreo</h3>
+                        <div class="number" id="stat-channels">0</div>
+                    </div>
+                    <div class="metric-icon">🌐</div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE REPORTES & CONFIGURADOR -->
+            <div class="content-section">
+                
+                <!-- LISTADO DE REPORTES CON BUSCADOR -->
+                <section class="reports-container">
+                    
+                    <!-- Barra de búsqueda e inteligente -->
+                    <div class="filter-panel">
+                        <div class="search-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="search-input" placeholder="Buscar por Roblox Username, apodo, ID, reportero...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="filter-category" class="select-filter">
+                                <option value="">Todos los Cheats</option>
+                                <option value="Auto Clicker M1">Auto Clicker M1</option>
+                                <option value="Aimbot">Aimbot</option>
+                                <option value="Fly Hack">Fly Hack</option>
+                                <option value="Speed Hack">Speed Hack</option>
+                                <option value="Noclip">Noclip</option>
+                                <option value="Script Executor">Script Executor</option>
+                                <option value="Exploit/Bug Abuse">Exploit/Bug Abuse</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                            <select id="filter-verified" class="select-filter">
+                                <option value="">Cualquier Verificación</option>
+                                <option value="1">Verificados en Roblox</option>
+                                <option value="0">Apodo o No Verificados</option>
+                            </select>
+                            <select id="filter-channel" class="select-filter" style="display: none;">
+                                <option value="">Todos los Canales</option>
+                            </select>
+                            <button class="btn-clear" id="btn-clear-filters">Limpiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Grid de Reportes -->
+                    <div class="reports-grid" id="reports-grid">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🔄</div>
+                            <h3>Cargando base de datos de reportes...</h3>
+                        </div>
+                    </div>
+                    
+                </section>
+
+                <!-- PANEL DE CONFIGURACIÓN LATERAL -->
+                <aside class="config-panel">
+                    <h2>Monitoreo de Servidores</h2>
+                    
+                    <!-- Añadir canal form -->
+                    <div class="form-group">
+                        <label for="new-channel-id">Añadir Canal de Discord</label>
+                        <input type="text" id="new-channel-id" class="input-text" placeholder="ID del Canal de Reportes">
+                    </div>
+                    <button class="btn-submit" id="btn-add-channel">Añadir Canal</button>
+                    
+                    <!-- Lista de canales activos -->
+                    <div class="form-group">
+                        <label>Canales Activos</label>
+                        <div class="channel-list" id="active-channels-list">
+                            <div style="font-size: 0.85em; color: var(--color-text-muted); text-align: center; padding: 10px;">
+                                Cargando canales...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Escaneo histórico -->
+                    <div class="manual-scan-box">
+                        <div class="form-group">
+                            <label for="scan-limit">Escanear Mensajes Históricos</label>
+                            <input type="number" id="scan-limit" class="input-text" value="100" min="10" max="1000">
+                        </div>
+                        <button class="btn-action btn-secondary" id="btn-scan-history">
+                            ⚙️ Lanzar Escaneo Masivo
+                        </button>
+                    </div>
+                </aside>
+                
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: REPORTAR SOSPECHOSO (MANUAL) -->
+        <section id="tab-reportar" class="tab-content" style="display: none;">
+            <div class="manual-report-container">
+                <h2>📝 Registrar Reporte Manual</h2>
+                <p class="section-desc">Ayúdanos a mantener el juego limpio. Completa la información y adjunta las pruebas visuales obligatorias.</p>
+                
+                <form id="manual-report-form">
+                    <div class="form-grid">
+                        <div class="form-left">
+                            <div class="form-group">
+                                <label for="manual-username">Nombre de Usuario o Apodo del Sospechoso</label>
+                                <input type="text" id="manual-username" class="input-text" placeholder="Ej: Xtiosotoni (o apodo si no se conoce el real)" required>
+                                <span class="input-tip">Si coincide con un usuario de Roblox real, se verificará y se obtendrá su avatar e ID automáticamente.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="manual-category">Categoría de Trampa</label>
+                                <select id="manual-category" class="select-filter" style="width: 100%;" required>
+                                    <option value="Auto Clicker M1">Auto Clicker M1</option>
+                                    <option value="Aimbot">Aimbot</option>
+                                    <option value="Fly Hack">Fly Hack</option>
+                                    <option value="Speed Hack">Speed Hack</option>
+                                    <option value="Noclip">Noclip</option>
+                                    <option value="Script Executor">Script Executor</option>
+                                    <option value="Exploit/Bug Abuse">Exploit/Bug Abuse</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="manual-details">Detalles / Descripción del Hack</label>
+                                <textarea id="manual-details" class="input-text" style="height: 120px; resize: none;" placeholder="Describe detalladamente qué estaba haciendo el sospechoso en la partida..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-right">
+                            <div class="form-group">
+                                <label>Evidencia de Captura o Video (Obligatorio)</label>
+                                
+                                <!-- Selectores de modo de evidencia -->
+                                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                                    <button type="button" class="btn-action" id="btn-mode-file" style="flex: 1; background: var(--color-primary); color: #fff; font-size: 0.85em; padding: 8px 12px;">📁 Subir Archivo</button>
+                                    <button type="button" class="btn-action" id="btn-mode-url" style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0.85em; padding: 8px 12px;">🔗 Importar por URL</button>
+                                </div>
+
+                                <!-- Contenedor de subida de archivo -->
+                                <div id="manual-file-wrapper">
+                                    <div class="drag-drop-zone" id="drag-drop-zone">
+                                        <div class="drag-drop-content">
+                                            <span class="upload-icon">📁</span>
+                                            <p class="drag-drop-title">Arrastra y suelta tu archivo aquí o haz clic para buscar</p>
+                                            <p class="drag-drop-info">Soporta imágenes (PNG, JPG) o videos (MP4, WEBM)</p>
+                                            <p class="drag-drop-warning">⚠️ Recuerda: Es obligatorio que la prueba sea visible. Se prefieren videos.</p>
+                                        </div>
+                                        <input type="file" id="manual-file-input" accept="image/*,video/*" style="display: none;">
+                                    </div>
+                                </div>
+
+                                <!-- Contenedor de entrada de URL -->
+                                <div id="manual-url-wrapper" style="display: none;">
+                                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--color-border); border-radius: 8px; padding: 20px; text-align: center;">
+                                        <span class="upload-icon" style="font-size: 2.5em; display: block; margin-bottom: 10px;">🔗</span>
+                                        <input type="text" id="manual-url-input" class="input-text" style="width: 100%; text-align: center; margin-bottom: 8px; border-color: var(--color-border);" placeholder="Pega el link de YouTube, Streamable, Google Drive, etc.">
+                                        <p class="drag-drop-info" style="font-size: 0.8em; margin: 0;">Soporta YouTube, Streamable, Google Drive (público) y enlaces directos de video/imagen.</p>
+                                        <p class="drag-drop-warning" style="font-size: 0.75em; margin-top: 4px; color: var(--color-warning);">⚠️ El sistema extraerá y descargará automáticamente el video en alta calidad.</p>
+                                    </div>
+                                </div>
+
+                                <div id="file-preview-container" class="file-preview-container" style="display: none; margin-top: 12px;">
+                                    <div class="preview-header">
+                                        <span id="preview-filename">evidencia.mp4</span>
+                                        <button type="button" class="btn-delete-channel" id="btn-remove-preview" style="color: var(--color-danger); font-size: 1.5em; font-weight: bold; line-height: 1;">&times;</button>
+                                    </div>
+                                    <div id="preview-media-wrapper">
+                                        <!-- Renderizado dinámico de imagen/video -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn-submit" id="btn-submit-manual" style="padding: 12px 32px; font-size: 0.95em;">🚀 Registrar Reporte Oficial</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: REGLAS DEL GREMIO -->
+        <section id="tab-reglas" class="tab-content" style="display: none;">
+            <div class="rules-scroll-container">
+                <div class="rules-header">
+                    <h2>📜 REGLAMENTO OFICIAL DE MODERACIÓN</h2>
+                    <div class="rules-divider"></div>
+                </div>
+                
+                <div class="rules-list">
+                    <div class="rule-item">
+                        <div class="rule-num">I</div>
+                        <div class="rule-body">
+                            <h3>Prohibido Reportar sin Razón o Pruebas</h3>
+                            <p>Cualquier reporte enviado que sea catalogado como falso o carente de fundamentos será descartado de inmediato, y se bloqueará el acceso del remitente al sistema.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">II</div>
+                        <div class="rule-body">
+                            <h3>Prohibido el Uso de Inteligencia Artificial (IA)</h3>
+                            <p>No se permite el uso de herramientas de IA para redactar testimonios falsos o inventar incidentes. Toda descripción de reporte debe ser honesta y redactada manualmente por quien presenció la infracción.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">III</div>
+                        <div class="rule-body">
+                            <h3>Evidencia Clara y Visible Obligatoria</h3>
+                            <p>Es un requisito indispensable que en la captura de pantalla o video adjunto aparezca de manera explícita el comportamiento del sospechoso o la interfaz de hacks/exploits. Si la prueba es confusa o no concluyente, el reporte no tendrá validez.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">IV</div>
+                        <div class="rule-body">
+                            <h3>Preferencia por Videos (.mp4)</h3>
+                            <p>Se aconseja y prefiere rotundamente subir clips de video sobre imágenes estáticas, ya que facilitan enormemente el trabajo de verificación a los administradores.</p>
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <div class="rule-num">V</div>
+                        <div class="rule-body">
+                            <h3>Validez y Almacenamiento de Reportes</h3>
+                            <p>Los reportes sin un nombre de usuario verificado de Roblox o aquellos cuyos datos no coincidan con la API oficial no se mostrarán al público general en el Dashboard. No obstante, **se almacenarán en la sección interna de administradores** para su revisión en caso de que utilicen apodos alterados para evadir baneos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE EVIDENCIA -->
+    <div class="modal" id="evidence-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modal-title">Evidencia de Trampa</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Se inyecta la imagen o reproductor de video de forma dinámica -->
+            </div>
+            <div class="modal-footer">
+                <div class="modal-meta-info" id="modal-meta">
+                    Cargando metadatos...
+                </div>
+                <a href="#" class="btn-action" id="modal-download-link" download>
+                    📥 Descargar Evidencia
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE LOGIN / REGISTRO (OPCIONAL) -->
+    <div class="modal" id="global-login-screen" style="z-index: 9999;">
+        <div class="modal-container" style="max-width: 420px; border-top: 4px solid var(--color-primary);">
+            <div class="modal-header">
+                <h3 id="auth-modal-title">⚔️ Iniciar Sesión</h3>
+                <button class="modal-close" id="auth-modal-close">&times;</button>
+            </div>
+            <div class="modal-body" style="min-height: 280px; flex-direction: column; gap: 16px; background: var(--bg-surface); padding: 24px; justify-content: center;">
+                <!-- FORMULARIO DE LOGIN -->
+                <div id="login-form-section" style="width: 100%; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="form-group" style="width: 100%;">
+                        <label for="login-username-input">Usuario</label>
+                        <input type="text" id="login-username-input" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="Ingresa tu usuario">
+                    </div>
+                    <div class="form-group" style="width: 100%;">
+                        <label for="login-password-input">Contraseña</label>
+                        <input type="password" id="login-password-input" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="••••••••">
+                    </div>
+                    <div id="login-error-msg" style="color: var(--color-danger); font-size: 0.85em; display: none; font-weight: bold; text-align: center; margin-top: 4px;">
+                        Usuario o contraseña incorrectos
+                    </div>
+                    <button class="btn-action" id="btn-login-submit" style="width: 100;">Entrar al Sistema</button>
+                    <p style="text-align: center; font-size: 0.85em; color: var(--color-text-muted);">
+                        ¿No tienes cuenta? <a href="#" id="switch-to-register" style="color: var(--color-primary-light); text-decoration: underline; cursor: pointer;">Regístrate aquí</a>
+                    </p>
+                </div>
+
+                <!-- FORMULARIO DE REGISTRO -->
+                <div id="register-form-section" style="width: 100%; display: none; flex-direction: column; gap: 16px;">
+                    <div class="form-group" style="width: 100%;">
+                        <label for="register-username-input">Nombre de Usuario</label>
+                        <input type="text" id="register-username-input" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="Mínimo 3 caracteres">
+                    </div>
+                    <div class="form-group" style="width: 100%;">
+                        <label for="register-password-input">Contraseña</label>
+                        <input type="password" id="register-password-input" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="Mínimo 4 caracteres">
+                    </div>
+                    <div class="form-group" style="width: 100%;">
+                        <label for="register-password-confirm">Confirmar Contraseña</label>
+                        <input type="password" id="register-password-confirm" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="Repite la contraseña">
+                    </div>
+                    <div id="register-error-msg" style="color: var(--color-danger); font-size: 0.85em; display: none; font-weight: bold; text-align: center; margin-top: 4px;"></div>
+                    <div id="register-success-msg" style="color: var(--color-success); font-size: 0.85em; display: none; font-weight: bold; text-align: center; margin-top: 4px;"></div>
+                    <button class="btn-action" id="btn-register-submit" style="width: 100%;">Crear Cuenta</button>
+                    <p style="text-align: center; font-size: 0.85em; color: var(--color-text-muted);">
+                        ¿Ya tienes cuenta? <a href="#" id="switch-to-login" style="color: var(--color-primary-light); text-decoration: underline; cursor: pointer;">Inicia sesión</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+        // Elementos del DOM
+        const reportsGrid = document.getElementById("reports-grid");
+        const searchInput = document.getElementById("search-input");
+        const filterCategory = document.getElementById("filter-category");
+        const filterVerified = document.getElementById("filter-verified");
+        const btnClearFilters = document.getElementById("btn-clear-filters");
+        
+        // Elementos de Config
+        const activeChannelsList = document.getElementById("active-channels-list");
+        const newChannelIdInput = document.getElementById("new-channel-id");
+        const btnAddChannel = document.getElementById("btn-add-channel");
+        const scanLimitInput = document.getElementById("scan-limit");
+        const btnScanHistory = document.getElementById("btn-scan-history");
+
+        // Elementos del Modal Evidencia
+        const evidenceModal = document.getElementById("evidence-modal");
+        const modalClose = document.getElementById("modal-close");
+        const modalTitle = document.getElementById("modal-title");
+        const modalBody = document.getElementById("modal-body");
+        const modalMeta = document.getElementById("modal-meta");
+        const modalDownloadLink = document.getElementById("modal-download-link");
+
+        // Stats del DOM
+        const statTotal = document.getElementById("stat-total");
+        const statVerified = document.getElementById("stat-verified");
+        const statNicknames = document.getElementById("stat-nicknames");
+        const statChannels = document.getElementById("stat-channels");
+
+        // Elementos del Login Global
+        const globalLoginScreen = document.getElementById("global-login-screen");
+        const loginUsernameInput = document.getElementById("login-username-input");
+        const loginPasswordInput = document.getElementById("login-password-input");
+        const btnLoginSubmit = document.getElementById("btn-login-submit");
+        const loginErrorMsg = document.getElementById("login-error-msg");
+        const userDisplayName = document.getElementById("user-display-name");
+        const btnLogout = document.getElementById("btn-logout");
+        const btnOpenLogin = document.getElementById("btn-open-login");
+        const authModalClose = document.getElementById("auth-modal-close");
+        const authModalTitle = document.getElementById("auth-modal-title");
+        const filterChannel = document.getElementById("filter-channel");
+
+        // Elementos de Registro
+        const loginFormSection = document.getElementById("login-form-section");
+        const registerFormSection = document.getElementById("register-form-section");
+        const switchToRegister = document.getElementById("switch-to-register");
+        const switchToLogin = document.getElementById("switch-to-login");
+        const btnRegisterSubmit = document.getElementById("btn-register-submit");
+        const registerErrorMsg = document.getElementById("register-error-msg");
+        const registerSuccessMsg = document.getElementById("register-success-msg");
+
+        // Elementos de Reporte Manual
+        const manualReportForm = document.getElementById("manual-report-form");
+        const dragDropZone = document.getElementById("drag-drop-zone");
+        const manualFileInput = document.getElementById("manual-file-input");
+        const filePreviewContainer = document.getElementById("file-preview-container");
+        const previewFilename = document.getElementById("preview-filename");
+        const previewMediaWrapper = document.getElementById("preview-media-wrapper");
+        const btnRemovePreview = document.getElementById("btn-remove-preview");
+        const btnSubmitManual = document.getElementById("btn-submit-manual");
+
+        // Estado local
+        let reportsData = [];
+        let monitoredChannels = [];
+        let currentRole = localStorage.getItem("session_role") || "guest";
+        let currentUsername = localStorage.getItem("session_username") || "";
+        let isSessionActive = localStorage.getItem("supabase_session_active") === "true";
+        let selectedManualFile = null;
+        let manualEvidenceMode = "file"; // "file" o "url"
+
+        // Inicialización
+        document.addEventListener("DOMContentLoaded", () => {
+            checkAndApplySession();
+
+            // Cambios de modo de evidencia manual
+            const btnModeFile = document.getElementById("btn-mode-file");
+            const btnModeUrl = document.getElementById("btn-mode-url");
+            const manualFileWrapper = document.getElementById("manual-file-wrapper");
+            const manualUrlWrapper = document.getElementById("manual-url-wrapper");
+            const manualUrlInput = document.getElementById("manual-url-input");
+
+            if (btnModeFile && btnModeUrl) {
+                btnModeFile.addEventListener("click", () => {
+                    manualEvidenceMode = "file";
+                    btnModeFile.style.background = "var(--color-primary)";
+                    btnModeFile.style.color = "#fff";
+                    btnModeUrl.style.background = "rgba(255,255,255,0.05)";
+                    btnModeUrl.style.border = "1px solid var(--color-border)";
+                    btnModeUrl.style.color = "var(--color-text-muted)";
+                    
+                    manualFileWrapper.style.display = "block";
+                    manualUrlWrapper.style.display = "none";
+                    
+                    if (selectedManualFile) {
+                        filePreviewContainer.style.display = "block";
+                        dragDropZone.style.display = "none";
+                    } else {
+                        filePreviewContainer.style.display = "none";
+                        dragDropZone.style.display = "flex";
+                    }
+                });
+
+                btnModeUrl.addEventListener("click", () => {
+                    manualEvidenceMode = "url";
+                    btnModeUrl.style.background = "var(--color-primary)";
+                    btnModeUrl.style.color = "#fff";
+                    btnModeFile.style.background = "rgba(255,255,255,0.05)";
+                    btnModeFile.style.border = "1px solid var(--color-border)";
+                    btnModeFile.style.color = "var(--color-text-muted)";
+                    
+                    manualFileWrapper.style.display = "none";
+                    manualUrlWrapper.style.display = "block";
+                    filePreviewContainer.style.display = "none";
+                });
+            }
+
+            // Event Listeners para Filtros
+            searchInput.addEventListener("input", filterAndRenderReports);
+            filterCategory.addEventListener("change", filterAndRenderReports);
+            filterVerified.addEventListener("change", filterAndRenderReports);
+            if (filterChannel) {
+                filterChannel.addEventListener("change", filterAndRenderReports);
+            }
+            btnClearFilters.addEventListener("click", () => {
+                searchInput.value = "";
+                filterCategory.value = "";
+                filterVerified.value = "";
+                if (filterChannel) filterChannel.value = "";
+                filterAndRenderReports();
+            });
+
+            // Agregar canal
+            btnAddChannel.addEventListener("click", addChannel);
+
+            // Escanear historial
+            btnScanHistory.addEventListener("click", runScanHistory);
+
+            // Cerrar modal evidencia
+            modalClose.addEventListener("click", closeModal);
+            evidenceModal.addEventListener("click", (e) => {
+                if (e.target === evidenceModal) closeModal();
+            });
+
+            // Botón abrir modal login
+            btnOpenLogin.addEventListener("click", () => {
+                showAuthForm("login");
+                globalLoginScreen.classList.add("open");
+            });
+
+            // Botón cerrar modal login/registro
+            authModalClose.addEventListener("click", () => {
+                globalLoginScreen.classList.remove("open");
+            });
+            globalLoginScreen.addEventListener("click", (e) => {
+                if (e.target === globalLoginScreen) globalLoginScreen.classList.remove("open");
+            });
+
+            // Eventos Login
+            btnLoginSubmit.addEventListener("click", handleGlobalLogin);
+            loginPasswordInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") handleGlobalLogin();
+            });
+            loginUsernameInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") loginPasswordInput.focus();
+            });
+
+            // Eventos Registro
+            btnRegisterSubmit.addEventListener("click", handleRegister);
+            document.getElementById("register-password-confirm").addEventListener("keypress", (e) => {
+                if (e.key === "Enter") handleRegister();
+            });
+
+            // Toggle Login <-> Registro
+            switchToRegister.addEventListener("click", (e) => {
+                e.preventDefault();
+                showAuthForm("register");
+            });
+            switchToLogin.addEventListener("click", (e) => {
+                e.preventDefault();
+                showAuthForm("login");
+            });
+
+            btnLogout.addEventListener("click", handleLogout);
+
+            // Eventos de Drag & Drop para Reporte Manual
+            dragDropZone.addEventListener("click", () => manualFileInput.click());
+            manualFileInput.addEventListener("change", (e) => {
+                if (e.target.files.length > 0) {
+                    handleSelectedFile(e.target.files[0]);
+                }
+            });
+
+            dragDropZone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dragDropZone.classList.add("dragover");
+            });
+
+            ["dragleave", "dragend"].forEach(type => {
+                dragDropZone.addEventListener(type, () => dragDropZone.classList.remove("dragover"));
+            });
+
+            dragDropZone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                dragDropZone.classList.remove("dragover");
+                if (e.dataTransfer.files.length > 0) {
+                    handleSelectedFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            btnRemovePreview.addEventListener("click", removePreviewFile);
+            manualReportForm.addEventListener("submit", handleManualReportSubmit);
+
+            // Polling cada 8 segundos
+            setInterval(() => {
+                if (document.activeElement !== searchInput && !searchInput.value.trim()) {
+                    loadStats();
+                    loadReports();
+                }
+            }, 8000);
+        });
+
+        // ============================================================
+        //                 FORMULARIO AUTH TOGGLE
+        // ============================================================
+        function showAuthForm(mode) {
+            loginErrorMsg.style.display = "none";
+            registerErrorMsg.style.display = "none";
+            registerSuccessMsg.style.display = "none";
+
+            if (mode === "register") {
+                loginFormSection.style.display = "none";
+                registerFormSection.style.display = "flex";
+                authModalTitle.innerText = "📝 Crear Cuenta";
+            } else {
+                loginFormSection.style.display = "flex";
+                registerFormSection.style.display = "none";
+                authModalTitle.innerText = "⚔️ Iniciar Sesión";
+            }
+        }
+
+        // ============================================================
+        //                 PESTAÑAS Y VISTA DE ROLES
+        // ============================================================
+        function switchTab(tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.style.display = "none");
+            document.getElementById(tabId).style.display = "block";
+            
+            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+            event.currentTarget.classList.add("active");
+        }
+
+        function checkAndApplySession() {
+            isSessionActive = localStorage.getItem("supabase_session_active") === "true";
+            currentRole = localStorage.getItem("session_role") || "guest";
+            currentUsername = localStorage.getItem("session_username") || "";
+
+            if (isSessionActive) {
+                globalLoginScreen.classList.remove("open");
+                userDisplayName.innerText = `👤 ${currentUsername} (${currentRole === "admin" ? "Admin" : "Usuario"})`;
+                btnLogout.style.display = "inline-block";
+                btnOpenLogin.style.display = "none";
+            } else {
+                // Modo público/visitante — no forzar login
+                currentRole = "guest";
+                globalLoginScreen.classList.remove("open");
+                btnLogout.style.display = "none";
+                btnOpenLogin.style.display = "inline-block";
+                userDisplayName.innerText = "";
+            }
+
+            applyRoleView();
+            loadStats();
+            loadReports();
+            loadChannels();
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("supabase_session_active");
+            localStorage.removeItem("session_role");
+            localStorage.removeItem("session_username");
+            
+            checkAndApplySession();
+            showToast("Sesión cerrada.");
+        }
+
+        function applyRoleView() {
+            const configPanel = document.querySelector(".config-panel");
+            const nicknameStatCard = document.querySelector(".metric-nickname");
+            const verifiedFilter = document.getElementById("filter-verified");
+            const reportTab = document.querySelectorAll(".tab-button")[1]; // Tab de Reportar
+
+            if (currentRole === "admin") {
+                if (configPanel) configPanel.style.display = "flex";
+                if (nicknameStatCard) nicknameStatCard.style.display = "flex";
+                if (verifiedFilter) verifiedFilter.style.display = "inline-block";
+                if (filterChannel) filterChannel.style.display = "inline-block";
+                if (reportTab) reportTab.style.display = "flex";
+            } else if (currentRole === "user") {
+                if (configPanel) configPanel.style.display = "none";
+                if (nicknameStatCard) nicknameStatCard.style.display = "none";
+                if (verifiedFilter) {
+                    verifiedFilter.value = "1";
+                    verifiedFilter.style.display = "none";
+                }
+                if (filterChannel) {
+                    filterChannel.value = "";
+                    filterChannel.style.display = "none";
+                }
+                if (reportTab) reportTab.style.display = "flex";
+            } else {
+                // guest — modo público
+                if (configPanel) configPanel.style.display = "none";
+                if (nicknameStatCard) nicknameStatCard.style.display = "none";
+                if (verifiedFilter) {
+                    verifiedFilter.value = "1";
+                    verifiedFilter.style.display = "none";
+                }
+                if (filterChannel) {
+                    filterChannel.value = "";
+                    filterChannel.style.display = "none";
+                }
+                if (reportTab) reportTab.style.display = "flex";
+            }
+        }
+
+        async function handleGlobalLogin() {
+            const username = loginUsernameInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+            if (!username || !password) return;
+
+            btnLoginSubmit.disabled = true;
+            btnLoginSubmit.innerText = "⏳ Verificando...";
+            loginErrorMsg.style.display = "none";
+
+            try {
+                const response = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: username, password: password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem("supabase_session_active", "true");
+                    localStorage.setItem("session_role", data.role);
+                    localStorage.setItem("session_username", data.username);
+                    
+                    loginUsernameInput.value = "";
+                    loginPasswordInput.value = "";
+                    
+                    checkAndApplySession();
+                    showToast(`¡Bienvenido, ${data.username}!`);
+                } else {
+                    const err = await response.json();
+                    loginErrorMsg.innerText = err.detail || "Usuario o contraseña incorrectos";
+                    loginErrorMsg.style.display = "block";
+                }
+            } catch (err) {
+                console.error("Error al iniciar sesión:", err);
+                loginErrorMsg.innerText = "Error de conexión al servidor.";
+                loginErrorMsg.style.display = "block";
+            } finally {
+                btnLoginSubmit.disabled = false;
+                btnLoginSubmit.innerText = "Entrar al Sistema";
+            }
+        }
+
+        async function handleRegister() {
+            const username = document.getElementById("register-username-input").value.trim();
+            const password = document.getElementById("register-password-input").value.trim();
+            const passwordConfirm = document.getElementById("register-password-confirm").value.trim();
+            
+            registerErrorMsg.style.display = "none";
+            registerSuccessMsg.style.display = "none";
+
+            if (!username || !password || !passwordConfirm) {
+                registerErrorMsg.innerText = "Completa todos los campos";
+                registerErrorMsg.style.display = "block";
+                return;
+            }
+            if (password !== passwordConfirm) {
+                registerErrorMsg.innerText = "Las contraseñas no coinciden";
+                registerErrorMsg.style.display = "block";
+                return;
+            }
+
+            btnRegisterSubmit.disabled = true;
+            btnRegisterSubmit.innerText = "⏳ Creando cuenta...";
+
+            try {
+                const response = await fetch("/api/auth/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    registerSuccessMsg.innerText = "✅ ¡Cuenta creada! Ahora inicia sesión.";
+                    registerSuccessMsg.style.display = "block";
+
+                    // Limpiar campos de registro
+                    document.getElementById("register-username-input").value = "";
+                    document.getElementById("register-password-input").value = "";
+                    document.getElementById("register-password-confirm").value = "";
+
+                    // Auto-switch a login después de 1.5s
+                    setTimeout(() => showAuthForm("login"), 1500);
+                } else {
+                    const err = await response.json();
+                    registerErrorMsg.innerText = err.detail || "Error al registrar";
+                    registerErrorMsg.style.display = "block";
+                }
+            } catch (err) {
+                console.error("Error al registrar:", err);
+                registerErrorMsg.innerText = "Error de conexión al servidor.";
+                registerErrorMsg.style.display = "block";
+            } finally {
+                btnRegisterSubmit.disabled = false;
+                btnRegisterSubmit.innerText = "Crear Cuenta";
+            }
+        }
+
+        // ============================================================
+        //                 CARGA DE DATOS DE LA API
+        // ============================================================
+        async function loadStats() {
+            try {
+                const apiRole = currentRole === "guest" ? "user" : currentRole;
+                const response = await fetch(`/api/stats?role=${apiRole}`);
+                if (response.ok) {
+                    const stats = await response.json();
+                    statTotal.innerText = stats.total_reports || 0;
+                    statVerified.innerText = stats.verified_count || 0;
+                    statNicknames.innerText = stats.nickname_count || 0;
+                    statChannels.innerText = stats.channels_count || 0;
+                }
+            } catch (err) {
+                console.error("Error cargando estadísticas de API:", err);
+            }
+        }
+
+        async function loadReports() {
+            try {
+                reportsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔄</div>
+                        <h3>Cargando reportes desde la base de datos...</h3>
+                    </div>
+                `;
+                const apiRole = currentRole === "guest" ? "user" : currentRole;
+                const response = await fetch(`/api/reports?role=${apiRole}`);
+                if (response.ok) {
+                    reportsData = await response.json();
+                    if (currentRole === "admin") {
+                        populateChannelFilter();
+                    }
+                    filterAndRenderReports();
+                } else {
+                    reportsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <h3>Error al leer la base de datos de reportes</h3>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.error("Error al cargar reportes:", err);
+                reportsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">❌</div>
+                        <h3>No se pudo conectar con el servidor backend</h3>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadChannels() {
+            try {
+                const response = await fetch("/api/config");
+                if (response.ok) {
+                    const data = await response.json();
+                    monitoredChannels = data.channels || [];
+                    renderChannels(monitoredChannels);
+                    if (currentRole === "admin") {
+                        populateChannelFilter();
+                    }
+                }
+            } catch (err) {
+                console.error("Error cargando canales:", err);
+            }
+        }
+
+        function populateChannelFilter() {
+            if (!filterChannel) return;
+            const currentValue = filterChannel.value;
+            
+            filterChannel.innerHTML = '<option value="">Todos los Canales</option>';
+            
+            // Combinar canales de los reportes con los canales monitoreados
+            const reportChannels = reportsData.map(r => r.channel_name).filter(Boolean);
+            const configChannels = monitoredChannels.map(c => c.channel_name).filter(Boolean);
+            const channels = [...new Set([...reportChannels, ...configChannels])];
+            channels.sort();
+            
+            channels.forEach(ch => {
+                const opt = document.createElement("option");
+                opt.value = ch;
+                opt.innerText = `#${ch}`;
+                filterChannel.appendChild(opt);
+            });
+            
+            if (channels.includes(currentValue)) {
+                filterChannel.value = currentValue;
+            }
+        }
+
+        // ============================================================
+        //                   LOGICA DE RENDERIZADO
+        // ============================================================
+
+        function filterAndRenderReports() {
+            const search = searchInput.value.toLowerCase().trim();
+            const category = filterCategory.value;
+            const verified = filterVerified.value;
+            const channelVal = filterChannel ? filterChannel.value : "";
+
+            const filtered = reportsData.filter(report => {
+                const searchMatch = !search || 
+                    (report.roblox_username_verified && report.roblox_username_verified.toLowerCase().includes(search)) ||
+                    (report.roblox_username_extracted && report.roblox_username_extracted.toLowerCase().includes(search)) ||
+                    (report.roblox_nickname_extracted && report.roblox_nickname_extracted.toLowerCase().includes(search)) ||
+                    (report.roblox_user_id && report.roblox_user_id.toString().includes(search)) ||
+                    (report.reporter_name && report.reporter_name.toLowerCase().includes(search)) ||
+                    (report.raw_content && report.raw_content.toLowerCase().includes(search));
+
+                const categoryMatch = !category || report.cheat_category === category;
+                const verifiedMatch = verified === "" || report.is_verified === parseInt(verified);
+                const channelMatch = !channelVal || report.channel_name === channelVal;
+
+                return searchMatch && categoryMatch && verifiedMatch && channelMatch;
+            });
+
+            renderReports(filtered);
+        }
+
+        function renderReports(reports) {
+            reportsGrid.innerHTML = "";
+
+            if (reports.length === 0) {
+                reportsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>No se encontraron reportes con los filtros seleccionados</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            reports.forEach(report => {
+                const isVerified = report.is_verified === 1;
+                
+                // Calcular clase de rareza según categoría de trampa
+                let rarityClass = "rarity-common";
+                const cheatCategory = report.cheat_category;
+                if (cheatCategory === "Auto Clicker M1") {
+                    rarityClass = "rarity-uncommon";
+                } else if (cheatCategory === "Noclip") {
+                    rarityClass = "rarity-rare";
+                } else if (cheatCategory === "Fly Hack" || cheatCategory === "Aimbot" || cheatCategory === "Speed Hack") {
+                    rarityClass = "rarity-legendary";
+                } else if (cheatCategory === "Script Executor" || cheatCategory === "Exploit/Bug Abuse") {
+                    rarityClass = "rarity-mythical";
+                }
+
+                const cardClass = `${isVerified ? "report-card verified" : "report-card unverified"} ${rarityClass}`;
+                
+                let suspectDisplayName = report.roblox_username_verified;
+                let robloxProfileLink = report.roblox_profile_url || `https://www.roblox.com/users/${report.roblox_user_id}/profile`;
+                
+                if (!isVerified) {
+                    suspectDisplayName = report.roblox_nickname_extracted || report.roblox_username_extracted || "Sospechoso Desconocido";
+                }
+
+                const card = document.createElement("div");
+                card.className = cardClass;
+                
+                const dateStr = report.timestamp ? report.timestamp.substring(0, 19).replace("T", " ") : "Fecha Desconocida";
+
+                const avatarHtml = (isVerified && report.roblox_avatar_url)
+                    ? `<img src="${report.roblox_avatar_url}" class="roblox-avatar" alt="Avatar">`
+                    : '';
+
+                let actionButtonsHtml = "";
+                // 1. Botón de evidencia
+                if (report.proof_local_path) {
+                    actionButtonsHtml += `
+                        <button class="btn-action" onclick="openEvidenceModal('${report.id}')">
+                            👀 Evidencia
+                        </button>
+                    `;
+                } else if (report.proof_url) {
+                    actionButtonsHtml += `
+                        <a href="${report.proof_url}" target="_blank" class="btn-action btn-secondary">
+                            🔗 Enlace
+                        </a>
+                    `;
+                } else {
+                    actionButtonsHtml += `
+                        <button class="btn-action btn-secondary" disabled>
+                            ❌ Sin Pruebas
+                        </button>
+                    `;
+                }
+
+                // Botones específicos de Admin (Copiar Ban, Descartar y Salto a Discord)
+                if (currentRole === "admin") {
+                    const suspectTargetName = isVerified 
+                        ? report.roblox_username_verified 
+                        : (report.roblox_nickname_extracted || report.roblox_username_extracted || '');
+                    
+                    if (suspectTargetName) {
+                        actionButtonsHtml += `
+                            <button class="btn-action btn-warning-outline" onclick="copyBanCommand('${suspectTargetName}', '${report.cheat_category || 'Exploits'}')">
+                                🔨 Ban
+                            </button>
+                        `;
+                    }
+
+                    // Salto a Discord si no es reporte manual
+                    if (report.server_id && report.server_id !== "0" && report.message_id) {
+                        const discordLink = `https://discord.com/channels/${report.server_id}/${report.channel_id}/${report.message_id}`;
+                        actionButtonsHtml += `
+                            <a href="${discordLink}" target="_blank" class="btn-action btn-secondary" style="border-color: #5865F2; color: #5865F2;">
+                                💬 Discord
+                            </a>
+                        `;
+                    }
+
+                    actionButtonsHtml += `
+                        <button class="btn-action btn-danger-outline" onclick="deleteReport('${report.id}')">
+                            🗑️ Descartar
+                        </button>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            ${avatarHtml}
+                            <div>
+                                <h3 class="suspect-name">
+                                    ${isVerified ? `<a href="${robloxProfileLink}" target="_blank" title="Ver perfil de Roblox (ID: ${report.roblox_user_id})">${suspectDisplayName} 🔗</a>` : suspectDisplayName}
+                                </h3>
+                                <span class="verification-badge ${isVerified ? 'verified' : 'unverified'}">
+                                    ${isVerified ? `ID Roblox: ${report.roblox_user_id}` : 'Apodo / Sin Verif.'}
+                                </span>
+                            </div>
+                        </div>
+                        <span class="cheat-badge ${rarityClass}">${report.cheat_category || 'Otros'}</span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="report-details">${report.cheat_details || 'Sin detalles extraídos.'}</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                🏢 Server: <strong>${report.server_name || 'Desconocido'}</strong>
+                            </div>
+                            <div class="meta-item">
+                                💬 Canal: <strong>#${report.channel_name || 'Desconocido'}</strong>
+                            </div>
+                            <div class="meta-item">
+                                👤 Reportero: <strong>${report.reporter_name.split("#")[0]}</strong>
+                            </div>
+                            <div class="meta-item">
+                                📅 Fecha: <strong>${dateStr}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        ${actionButtonsHtml}
+                    </div>
+                `;
+
+                reportsGrid.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        //                   MÉTODOS DE CONFIGURACIÓN
+        // ============================================================
+        async function renderChannels(channels) {
+            activeChannelsList.innerHTML = "";
+            if (channels.length === 0) {
+                activeChannelsList.innerHTML = `
+                    <div style="font-size: 0.85em; color: var(--color-text-muted); text-align: center; padding: 10px;">
+                        No hay canales configurados.
+                    </div>
+                `;
+                return;
+            }
+
+            channels.forEach(ch => {
+                const item = document.createElement("div");
+                item.className = "channel-item";
+                item.innerHTML = `
+                    <div class="channel-info">
+                        <span class="channel-name">#${ch.channel_name}</span>
+                        <span class="channel-server">${ch.server_name}</span>
+                    </div>
+                    <button class="btn-delete-channel" onclick="deleteChannel('${ch.channel_id}')" title="Eliminar de monitoreo">
+                        &times;
+                    </button>
+                `;
+                activeChannelsList.appendChild(item);
+            });
+        }
+
+        async function addChannel() {
+            const channelId = newChannelIdInput.value.trim();
+            if (!channelId) {
+                alert("Por favor, introduce un ID de canal válido.");
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/config/channels", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ channel_id: channelId })
+                });
+
+                if (response.ok) {
+                    newChannelIdInput.value = "";
+                    showToast("Canal añadido correctamente.");
+                    loadChannels();
+                    loadStats();
+                } else {
+                    const err = await response.json();
+                    alert("Error al añadir canal: " + (err.detail || "ID incorrecto o canal inaccesible"));
+                }
+            } catch (err) {
+                alert("Error de conexión al guardar el canal.");
+                console.error(err);
+            }
+        }
+
+        async function deleteChannel(channelId) {
+            if (!confirm("¿Seguro que deseas eliminar este canal del monitoreo?")) return;
+
+            try {
+                const response = await fetch(`/api/config/channels/${channelId}`, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    loadChannels();
+                    loadStats();
+                    showToast("Canal eliminado de monitoreo.");
+                } else {
+                    alert("Error al eliminar el canal.");
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function runScanHistory() {
+            const limit = parseInt(scanLimitInput.value) || 100;
+            btnScanHistory.disabled = true;
+            btnScanHistory.innerText = "⏳ Escaneando...";
+
+            try {
+                const response = await fetch(`/api/config/scan?limit=${limit}`, {
+                    method: "POST"
+                });
+
+                if (response.ok) {
+                    const res = await response.json();
+                    alert(`Escaneo histórico completado!\n${res.detail || "Proceso finalizado"}`);
+                    loadReports();
+                    loadStats();
+                } else {
+                    alert("Error al ejecutar el escaneo histórico. Verifica la consola del bot.");
+                }
+            } catch (err) {
+                alert("Error de red al ejecutar escaneo.");
+                console.error(err);
+            } finally {
+                btnScanHistory.disabled = false;
+                btnScanHistory.innerText = "⚙️ Lanzar Escaneo Masivo";
+            }
+        }
+
+        // ============================================================
+        //                   MANEJO DE ARCHIVOS ADJUNTOS MANUAL
+        // ============================================================
+        function handleSelectedFile(file) {
+            const maxMB = 100;
+            if (file.size > maxMB * 1024 * 1024) {
+                alert(`El archivo supera el límite máximo de ${maxMB} MB.`);
+                return;
+            }
+
+            selectedManualFile = file;
+            previewFilename.innerText = file.name;
+            
+            dragDropZone.style.display = "none";
+            filePreviewContainer.style.display = "block";
+            previewMediaWrapper.innerHTML = "";
+
+            const fileUrl = URL.createObjectURL(file);
+            if (file.type.startsWith("image/")) {
+                previewMediaWrapper.innerHTML = `<img src="${fileUrl}" alt="Previsualización">`;
+            } else if (file.type.startsWith("video/")) {
+                previewMediaWrapper.innerHTML = `<video controls src="${fileUrl}" autoplay muted style="width:100%; max-height:290px;"></video>`;
+            } else {
+                previewMediaWrapper.innerHTML = `<p style="color: white; padding: 20px;">Archivo adjunto: ${file.name}</p>`;
+            }
+        }
+
+        function removePreviewFile() {
+            selectedManualFile = null;
+            manualFileInput.value = "";
+            dragDropZone.style.display = "flex";
+            filePreviewContainer.style.display = "none";
+            previewMediaWrapper.innerHTML = "";
+        }
+
+        async function handleManualReportSubmit(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("manual-username").value.trim();
+            const category = document.getElementById("manual-category").value;
+            const details = document.getElementById("manual-details").value.trim();
+            const urlInput = document.getElementById("manual-url-input");
+
+            const formData = new FormData();
+            formData.append("username", username);
+            formData.append("cheat_category", category);
+            formData.append("cheat_details", details);
+
+            if (manualEvidenceMode === "file") {
+                if (!selectedManualFile) {
+                    alert("¡Obligatoriamente debes subir una imagen o video que muestre la evidencia clara de la trampa!");
+                    return;
+                }
+                formData.append("file", selectedManualFile);
+            } else {
+                const evidenceUrl = urlInput.value.trim();
+                if (!evidenceUrl || !evidenceUrl.startsWith("http")) {
+                    alert("¡Por favor introduce una URL de evidencia válida que empiece con http o https!");
+                    return;
+                }
+                formData.append("evidence_url", evidenceUrl);
+            }
+
+            btnSubmitManual.disabled = true;
+            btnSubmitManual.innerText = "⏳ Registrando reporte...";
+
+            try {
+                const response = await fetch("/api/reports/manual", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showToast("¡Reporte manual enviado y registrado con éxito!");
+                    manualReportForm.reset();
+                    if (urlInput) urlInput.value = "";
+                    removePreviewFile();
+
+                    loadStats();
+                    loadReports();
+                    
+                    // Regresar al dashboard
+                    switchTab("tab-dashboard");
+                } else {
+                    const err = await response.json();
+                    alert("Error al enviar reporte manual: " + (err.detail || "Error interno"));
+                }
+            } catch (err) {
+                console.error("Error al registrar reporte:", err);
+                alert("Error de red al enviar reporte.");
+            } finally {
+                btnSubmitManual.disabled = false;
+                btnSubmitManual.innerText = "🚀 Registrar Reporte Oficial";
+            }
+        }
+
+        // ============================================================
+        //                   LOGICA DEL MODAL DE EVIDENCIA
+        // ============================================================
+        function openEvidenceModal(reportId) {
+            const report = reportsData.find(r => r.id === parseInt(reportId) || r.id === reportId);
+            if (!report) return;
+
+            modalTitle.innerText = `Evidencia — ${report.roblox_username_verified || report.roblox_nickname_extracted || 'Sospechoso'}`;
+            modalBody.innerHTML = "";
+
+            const proofPath = report.proof_local_path && report.proof_local_path.startsWith("http")
+                ? report.proof_local_path
+                : "/" + report.proof_local_path;
+
+            if (report.proof_type === "image") {
+                modalBody.innerHTML = `<img src="${proofPath}" alt="Imagen de evidencia">`;
+            } else if (report.proof_type === "video") {
+                modalBody.innerHTML = `
+                    <video controls autoplay playsinline preload="auto" style="width: 100%; max-height: 80vh;">
+                        <source src="${proofPath}">
+                        Tu navegador no soporta reproducción de video HTML5.
+                    </video>
+                `;
+            } else {
+                modalBody.innerHTML = `<p style="color: white;">Tipo de prueba desconocido.</p>`;
+            }
+
+            const dateStr = report.timestamp ? report.timestamp.substring(0, 19).replace("T", " ") : "";
+            modalMeta.innerText = `Reportado por ${report.reporter_name} en ${report.server_name} (#${report.channel_name}) el ${dateStr}`;
+            
+            modalDownloadLink.href = proofPath;
+            modalDownloadLink.setAttribute("download", report.proof_local_path.split("/").pop().split("?")[0]);
+
+            evidenceModal.classList.add("open");
+        }
+
+        function closeModal() {
+            evidenceModal.classList.remove("open");
+            const video = modalBody.querySelector("video");
+            if (video) video.pause();
+            modalBody.innerHTML = "";
+        }
+
+        function copyBanCommand(username, cheat) {
+            const cleanUser = username.replace(/[🔗\s]/g, '');
+            const command = `/ban ${cleanUser} 30d Uso de ${cheat || 'Cheats'}`;
+            navigator.clipboard.writeText(command).then(() => {
+                showToast(`¡Comando copiado!: ${command}`);
+            }).catch(err => {
+                alert(`Comando generado: ${command} (Cópialo manualmente)`);
+            });
+        }
+
+        async function deleteReport(reportId) {
+            if (!confirm("¿Seguro que deseas eliminar permanentemente este reporte?")) return;
+            try {
+                const response = await fetch(`/api/reports/${reportId}`, {
+                    method: "DELETE"
+                });
+                if (response.ok) {
+                    reportsData = reportsData.filter(r => r.id !== parseInt(reportId) && r.id !== reportId);
+                    filterAndRenderReports();
+                    loadStats();
+                    showToast("Reporte eliminado de la base de datos.");
+                } else {
+                    alert("Error al eliminar el reporte.");
+                }
+            } catch (err) {
+                console.error("Error al conectar con la API:", err);
+            }
+        }
+
+        function showToast(message) {
+            let toast = document.getElementById("custom-toast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "custom-toast";
+                toast.style.position = "fixed";
+                toast.style.bottom = "20px";
+                toast.style.right = "20px";
+                toast.style.background = "#282828";
+                toast.style.border = "1px solid var(--color-primary)";
+                toast.style.color = "#ffffff";
+                toast.style.padding = "12px 24px";
+                toast.style.borderRadius = "var(--border-radius-md)";
+                toast.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.6)";
+                toast.style.zIndex = "2000";
+                toast.style.fontFamily = "'Inter', sans-serif";
+                toast.style.fontSize = "0.9em";
+                toast.style.fontWeight = "600";
+                toast.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(20px)";
+                document.body.appendChild(toast);
+            }
+            toast.innerText = message;
+            toast.style.opacity = "1";
+            toast.style.transform = "translateY(0)";
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(20px)";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
