@@ -39,12 +39,9 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(na
 log = logging.getLogger("Launcher")
 
 # ============================================================
-#       IMPORTACIÓN DINÁMICA DE COG CON PARÉNTESIS EN NOMBRE
+#                     IMPORTACIÓN DE COG
 # ============================================================
-spec = importlib.util.spec_from_file_location("scan_all", "scan_all (1).py")
-scan_all = importlib.util.module_from_spec(spec)
-sys.modules["scan_all"] = scan_all
-spec.loader.exec_module(scan_all)
+import scan_all
 
 # ============================================================
 #             CONFIGURACIÓN DE DISCORD Y FASTAPI

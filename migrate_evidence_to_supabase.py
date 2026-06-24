@@ -1,8 +1,6 @@
 import asyncio
-import importlib.util
 import mimetypes
 import os
-import sys
 from pathlib import Path
 
 
@@ -17,17 +15,13 @@ def load_env():
             os.environ.setdefault(key.strip(), value.strip())
 
 
-def load_scan_all():
-    spec = importlib.util.spec_from_file_location("scan_all", "scan_all (1).py")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules["scan_all"] = module
-    spec.loader.exec_module(module)
-    return module
+# Cargar entorno antes de importar scan_all para que tenga las variables de configuración
+load_env()
+
+import scan_all
 
 
 async def main():
-    load_env()
-    scan_all = load_scan_all()
     evidence_dir = Path(scan_all.EVIDENCE_DIR)
     apply_updates = os.getenv("MIGRATE_EVIDENCE_APPLY") == "1"
 
