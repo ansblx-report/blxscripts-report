@@ -370,6 +370,11 @@
             .content-section {
                 grid-template-columns: 1fr;
             }
+            .config-panel {
+                order: -1;
+                position: relative;
+                top: 0;
+            }
         }
 
         /* ============================================================
@@ -1895,7 +1900,7 @@
             setInterval(() => {
                 if (document.activeElement !== searchInput && !searchInput.value.trim()) {
                     loadStats();
-                    loadReports();
+                    loadReports(true);
                 }
             }, 8000);
         });
@@ -2121,23 +2126,30 @@
             }
         }
 
-        async function loadReports() {
+        async function loadReports(isSilent = false) {
             try {
-                reportsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">🔄</div>
-                        <h3>Cargando reportes desde la base de datos...</h3>
-                    </div>
-                `;
+                if (!isSilent) {
+                    reportsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🔄</div>
+                            <h3>Cargando reportes desde la base de datos...</h3>
+                        </div>
+                    `;
+                }
                 const apiRole = currentRole === "guest" ? "user" : currentRole;
                 const response = await fetch(`/api/reports?role=${apiRole}`);
                 if (response.ok) {
-                    reportsData = await response.json();
-                    if (currentRole === "admin") {
-                        populateChannelFilter();
+                    const newData = await response.json();
+                    
+                    // Solo actualizamos y renderizamos si el contenido es diferente o si es la primera carga
+                    if (JSON.stringify(newData) !== JSON.stringify(reportsData) || reportsGrid.querySelector(".empty-state h3")?.innerText.includes("Cargando")) {
+                        reportsData = newData;
+                        if (currentRole === "admin") {
+                            populateChannelFilter();
+                        }
+                        filterAndRenderReports();
                     }
-                    filterAndRenderReports();
-                } else {
+                } else if (!isSilent) {
                     reportsGrid.innerHTML = `
                         <div class="empty-state">
                             <div class="empty-state-icon">❌</div>
@@ -2147,12 +2159,14 @@
                 }
             } catch (err) {
                 console.error("Error al cargar reportes:", err);
-                reportsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">❌</div>
-                        <h3>No se pudo conectar con el servidor backend</h3>
-                    </div>
-                `;
+                if (!isSilent) {
+                    reportsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <h3>No se pudo conectar con el servidor backend</h3>
+                        </div>
+                    `;
+                }
             }
         }
 
@@ -2294,20 +2308,8 @@
                     `;
                 }
 
-                // Botones específicos de Admin (Copiar Ban, Descartar y Salto a Discord)
+                // Botones específicos de Admin (Descartar y Salto a Discord)
                 if (currentRole === "admin") {
-                    const suspectTargetName = isVerified 
-                        ? report.roblox_username_verified 
-                        : (report.roblox_nickname_extracted || report.roblox_username_extracted || '');
-                    
-                    if (suspectTargetName) {
-                        actionButtonsHtml += `
-                            <button class="btn-action btn-warning-outline" onclick="copyBanCommand('${suspectTargetName}', '${report.cheat_category || 'Exploits'}')">
-                                🔨 Ban
-                            </button>
-                        `;
-                    }
-
                     // Salto a Discord si no es reporte manual
                     if (report.server_id && report.server_id !== "0" && report.message_id) {
                         const discordLink = `https://discord.com/channels/${report.server_id}/${report.channel_id}/${report.message_id}`;
