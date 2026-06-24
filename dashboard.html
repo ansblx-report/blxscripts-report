@@ -816,6 +816,66 @@
             color: rgba(255, 255, 255, 0.15);
         }
 
+        /* Banner de Nuevos Reportes (UX Estilo Twitter) */
+        .new-reports-banner {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(40, 30, 10, 0.95));
+            border: 1px dashed var(--color-primary);
+            border-radius: var(--border-radius-md);
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 4px 15px rgba(255, 184, 0, 0.15);
+            animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .banner-text {
+            color: var(--color-primary-light);
+            font-weight: 600;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-update-view {
+            background: var(--color-primary);
+            color: var(--color-bg-dark);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 0.85em;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 184, 0, 0.3);
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .btn-update-view:hover {
+            background: #ffc400;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 184, 0, 0.5);
+        }
+
+        .btn-update-view:active {
+            transform: translateY(0);
+        }
+
         /* ============================================================
            SECCIÓN DERECHA: PANEL DE CONFIGURACIÓN
            ============================================================ */
@@ -1424,6 +1484,12 @@
                         </div>
                     </div>
 
+                    <!-- Banner de Nuevos Reportes Detectados -->
+                    <div class="new-reports-banner" id="new-reports-banner" style="display: none;">
+                        <span class="banner-text">🔔 Se han detectado nuevos reportes en tiempo real.</span>
+                        <button class="btn-update-view" id="btn-update-reports-view">Mostrar Nuevos Reportes</button>
+                    </div>
+
                     <!-- Grid de Reportes -->
                     <div class="reports-grid" id="reports-grid">
                         <div class="empty-state">
@@ -1745,8 +1811,13 @@
         const btnRemovePreview = document.getElementById("btn-remove-preview");
         const btnSubmitManual = document.getElementById("btn-submit-manual");
 
+        // Elementos del banner de nuevos reportes
+        const newReportsBanner = document.getElementById("new-reports-banner");
+        const btnUpdateReportsView = document.getElementById("btn-update-reports-view");
+
         // Estado local
         let reportsData = [];
+        let pendingReportsData = null;
         let monitoredChannels = [];
         let currentRole = localStorage.getItem("session_role") || "guest";
         let currentUsername = localStorage.getItem("session_username") || "";
@@ -1895,6 +1966,19 @@
 
             btnRemovePreview.addEventListener("click", removePreviewFile);
             manualReportForm.addEventListener("submit", handleManualReportSubmit);
+
+            // Evento para actualizar el dashboard desde el banner de nuevos reportes
+            btnUpdateReportsView.addEventListener("click", () => {
+                if (pendingReportsData) {
+                    reportsData = pendingReportsData;
+                    pendingReportsData = null;
+                    newReportsBanner.style.display = "none";
+                    if (currentRole === "admin") {
+                        populateChannelFilter();
+                    }
+                    filterAndRenderReports();
+                }
+            });
 
             // Polling cada 8 segundos
             setInterval(() => {
@@ -2135,19 +2219,44 @@
                             <h3>Cargando reportes desde la base de datos...</h3>
                         </div>
                     `;
+                    // Ocultar el banner si se hace una carga no silenciosa explícita
+                    if (newReportsBanner) {
+                        newReportsBanner.style.display = "none";
+                    }
+                    pendingReportsData = null;
                 }
                 const apiRole = currentRole === "guest" ? "user" : currentRole;
                 const response = await fetch(`/api/reports?role=${apiRole}`);
                 if (response.ok) {
                     const newData = await response.json();
                     
-                    // Solo actualizamos y renderizamos si el contenido es diferente o si es la primera carga
-                    if (JSON.stringify(newData) !== JSON.stringify(reportsData) || reportsGrid.querySelector(".empty-state h3")?.innerText.includes("Cargando")) {
-                        reportsData = newData;
-                        if (currentRole === "admin") {
-                            populateChannelFilter();
+                    // Comprobar si hay cambios
+                    const hasChanges = JSON.stringify(newData) !== JSON.stringify(reportsData);
+                    
+                    if (hasChanges) {
+                        // Si ya había reportes en pantalla, y es una actualización en segundo plano (silenciosa),
+                        // guardamos los reportes nuevos de forma pasiva y mostramos un aviso no intrusivo (estilo Twitter).
+                        // Esto evita moverle la pantalla al usuario de forma estresante mientras lee.
+                        if (isSilent && reportsData.length > 0) {
+                            pendingReportsData = newData;
+                            const diff = newData.length - reportsData.length;
+                            const countText = diff > 0 ? `${diff} nuevos` : 'cambios en los';
+                            if (newReportsBanner) {
+                                newReportsBanner.querySelector(".banner-text").innerHTML = `🔔 Se han detectado ${countText} reportes en tiempo real.`;
+                                newReportsBanner.style.display = "flex";
+                            }
+                        } else {
+                            // En cargas iniciales o acciones manuales directas, renderizar inmediatamente
+                            reportsData = newData;
+                            pendingReportsData = null;
+                            if (newReportsBanner) {
+                                newReportsBanner.style.display = "none";
+                            }
+                            if (currentRole === "admin") {
+                                populateChannelFilter();
+                            }
+                            filterAndRenderReports();
                         }
-                        filterAndRenderReports();
                     }
                 } else if (!isSilent) {
                     reportsGrid.innerHTML = `
