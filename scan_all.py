@@ -571,6 +571,19 @@ async def delete_report_by_id(report_id: int, session=None) -> bool:
     res = await supabase_request("DELETE", "roblox_reports", params={"id": f"eq.{report_id}"}, session=session)
     return res is not None
 
+async def wipe_all_supabase_data(session=None) -> bool:
+    try:
+        # 1. Borrar todos los reportes
+        await supabase_request("DELETE", "roblox_reports", params={"id": "not.is.null"}, session=session)
+        # 2. Borrar todos los canales monitoreados
+        await supabase_request("DELETE", "monitored_channels", params={"channel_id": "not.is.null"}, session=session)
+        # 3. Borrar todos los usuarios
+        await supabase_request("DELETE", "users", params={"username": "not.is.null"}, session=session)
+        return True
+    except Exception as e:
+        log.error(f"Error realizando el vaciado completo de Supabase: {e}")
+        return False
+
 async def search_reports(query_str: str, session=None) -> list:
     query_val = f"*{query_str}*"
     params = {

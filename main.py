@@ -146,6 +146,27 @@ async def delete_report(report_id: int):
         log.error(f"Error eliminando reporte {report_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/api/admin/wipe-database")
+async def wipe_database(data: dict):
+    """Vacía por completo todas las tablas de Supabase tras validar la contraseña de administrador."""
+    password = data.get("password")
+    if not password:
+        raise HTTPException(status_code=400, detail="Contraseña requerida")
+    
+    # Validar contraseña contra la variable de entorno ADMIN_PASSWORD
+    if password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Contraseña de administrador incorrecta")
+    
+    log.warning("⚠️ SOLICITUD DE BORRADO COMPLETO DE BASE DE DATOS RECIBIDA ⚠️")
+    
+    success = await scan_all.wipe_all_supabase_data()
+    if success:
+        log.info("🔥 Base de datos de Supabase vaciada con éxito (reportes, canales y usuarios eliminados).")
+        return {"status": "success", "detail": "Base de datos vaciada por completo."}
+    else:
+        log.error("❌ Falló el vaciado completo de la base de datos.")
+        raise HTTPException(status_code=500, detail="Error interno al vaciar las tablas de Supabase.")
+
 @app.post("/api/auth/login")
 async def api_login(data: dict):
     """Valida credenciales contra la tabla de usuarios en Supabase."""

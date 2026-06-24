@@ -1531,6 +1531,16 @@
                             ⚙️ Lanzar Escaneo Masivo
                         </button>
                     </div>
+
+                    <!-- Destrucción de base de datos (Admin solo) -->
+                    <div class="admin-wipe-box" id="admin-wipe-box" style="display: none; border-top: 1px dashed var(--border-color); padding-top: 20px; margin-top: 10px;">
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label style="color: var(--color-danger); font-weight: bold; font-size: 0.85em;">⚠️ Zona de Peligro</label>
+                        </div>
+                        <button class="btn-action" id="btn-open-wipe-modal" style="background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.4); color: var(--color-danger); font-weight: 700; width: 100%; text-transform: uppercase; font-size: 0.85em; transition: all 0.2s ease;">
+                            🔥 Vaciar Supabase (Wipe)
+                        </button>
+                    </div>
                 </aside>
                 
             </div>
@@ -1695,6 +1705,46 @@
                 <a href="#" class="btn-action" id="modal-download-link" download>
                     📥 Descargar Evidencia
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DESTRUCCIÓN / WIPE DE BASE DE DATOS -->
+    <div class="modal" id="wipe-database-modal" style="z-index: 99999;">
+        <div class="modal-container" style="max-width: 450px; border-top: 4px solid var(--color-danger); box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);">
+            <div class="modal-header">
+                <h3 style="color: var(--color-danger); display: flex; align-items: center; gap: 8px; margin: 0;">
+                    ⚠️ ADVERTENCIA CRÍTICA
+                </h3>
+                <button class="modal-close" id="wipe-modal-close">&times;</button>
+            </div>
+            <div class="modal-body" style="background: var(--bg-surface); padding: 24px; display: flex; flex-direction: column; gap: 16px; min-height: auto;">
+                <p style="color: var(--color-text); font-size: 0.95em; line-height: 1.5; margin: 0;">
+                    Esta operación es <strong>totalmente irreversible</strong>. Se eliminarán permanentemente de Supabase:
+                </p>
+                <ul style="color: var(--color-text-muted); font-size: 0.9em; margin: 0; padding-left: 20px; line-height: 1.6;">
+                    <li>Todos los reportes de cheaters analizados.</li>
+                    <li>Todos los canales de Discord configurados.</li>
+                    <li>Todos los usuarios registrados en el panel.</li>
+                </ul>
+                <p style="color: var(--color-warning); font-size: 0.9em; font-weight: bold; margin: 0;">
+                    Para confirmar, ingresa tu contraseña de Administrador y espera los 10 segundos de seguridad.
+                </p>
+                
+                <div class="form-group" style="width: 100%;">
+                    <label for="wipe-password-input">Contraseña de Administrador</label>
+                    <input type="password" id="wipe-password-input" class="input-text" style="width: 100%; font-size: 1.1em; margin-top: 8px;" placeholder="Ingresa tu contraseña">
+                </div>
+                
+                <div id="wipe-error-msg" style="color: var(--color-danger); font-size: 0.85em; display: none; font-weight: bold; text-align: center; margin-top: 4px;">
+                    Contraseña incorrecta
+                </div>
+            </div>
+            <div class="modal-footer" style="background: rgba(20, 20, 20, 0.5); padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border-color);">
+                <button class="btn-action btn-secondary" id="btn-wipe-cancel" style="padding: 10px 20px;">Cancelar</button>
+                <button class="btn-action" id="btn-wipe-confirm" disabled style="background: var(--color-danger); color: white; border-color: var(--color-danger); font-weight: bold; padding: 10px 20px; cursor: not-allowed; opacity: 0.5;">
+                    Entendido, Borrar Todo (10s)
+                </button>
             </div>
         </div>
     </div>
@@ -1987,6 +2037,104 @@
                     loadReports(true);
                 }
             }, 8000);
+
+            // ============================================================
+            //          LÓGICA DEL MODAL DE WIPE DE BASE DE DATOS
+            // ============================================================
+            const wipeModal = document.getElementById("wipe-database-modal");
+            const btnOpenWipeModal = document.getElementById("btn-open-wipe-modal");
+            const btnWipeCancel = document.getElementById("btn-wipe-cancel");
+            const btnWipeConfirm = document.getElementById("btn-wipe-confirm");
+            const wipeModalClose = document.getElementById("wipe-modal-close");
+            const wipePasswordInput = document.getElementById("wipe-password-input");
+            const wipeErrorMsg = document.getElementById("wipe-error-msg");
+            let wipeCountdownTimer = null;
+
+            function openWipeModal() {
+                wipePasswordInput.value = "";
+                wipeErrorMsg.style.display = "none";
+                btnWipeConfirm.disabled = true;
+                btnWipeConfirm.style.cursor = "not-allowed";
+                btnWipeConfirm.style.opacity = "0.5";
+                btnWipeConfirm.innerText = "Entendido, Borrar Todo (10s)";
+                if (wipeCountdownTimer) clearInterval(wipeCountdownTimer);
+                wipeModal.classList.add("open");
+
+                // Iniciar cuenta regresiva de 10 segundos
+                let remaining = 10;
+                btnWipeConfirm.innerText = `Entendido, Borrar Todo (${remaining}s)`;
+                wipeCountdownTimer = setInterval(() => {
+                    remaining--;
+                    if (remaining <= 0) {
+                        clearInterval(wipeCountdownTimer);
+                        wipeCountdownTimer = null;
+                        btnWipeConfirm.disabled = false;
+                        btnWipeConfirm.style.cursor = "pointer";
+                        btnWipeConfirm.style.opacity = "1";
+                        btnWipeConfirm.innerText = "🔥 CONFIRMAR BORRADO TOTAL";
+                    } else {
+                        btnWipeConfirm.innerText = `Entendido, Borrar Todo (${remaining}s)`;
+                    }
+                }, 1000);
+            }
+
+            function closeWipeModal() {
+                wipeModal.classList.remove("open");
+                if (wipeCountdownTimer) {
+                    clearInterval(wipeCountdownTimer);
+                    wipeCountdownTimer = null;
+                }
+            }
+
+            btnOpenWipeModal.addEventListener("click", openWipeModal);
+            btnWipeCancel.addEventListener("click", closeWipeModal);
+            wipeModalClose.addEventListener("click", closeWipeModal);
+            wipeModal.addEventListener("click", (e) => {
+                if (e.target === wipeModal) closeWipeModal();
+            });
+
+            btnWipeConfirm.addEventListener("click", async () => {
+                const password = wipePasswordInput.value.trim();
+                if (!password) {
+                    wipeErrorMsg.innerText = "Debes ingresar la contraseña de administrador.";
+                    wipeErrorMsg.style.display = "block";
+                    return;
+                }
+
+                wipeErrorMsg.style.display = "none";
+                btnWipeConfirm.disabled = true;
+                btnWipeConfirm.innerText = "⏳ Eliminando todo...";
+
+                try {
+                    const response = await fetch("/api/admin/wipe-database", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ password })
+                    });
+
+                    if (response.ok) {
+                        closeWipeModal();
+                        showToast("🔥 Base de datos vaciada por completo.");
+                        // Cerrar sesión del admin ya que los usuarios fueron borrados
+                        localStorage.removeItem("supabase_session_active");
+                        localStorage.removeItem("session_role");
+                        localStorage.removeItem("session_username");
+                        checkAndApplySession();
+                    } else {
+                        const err = await response.json();
+                        wipeErrorMsg.innerText = err.detail || "Error al vaciar la base de datos.";
+                        wipeErrorMsg.style.display = "block";
+                        btnWipeConfirm.disabled = false;
+                        btnWipeConfirm.innerText = "🔥 CONFIRMAR BORRADO TOTAL";
+                    }
+                } catch (err) {
+                    console.error("Error al vaciar base de datos:", err);
+                    wipeErrorMsg.innerText = "Error de conexión con el servidor.";
+                    wipeErrorMsg.style.display = "block";
+                    btnWipeConfirm.disabled = false;
+                    btnWipeConfirm.innerText = "🔥 CONFIRMAR BORRADO TOTAL";
+                }
+            });
         });
 
         // ============================================================
@@ -2058,6 +2206,7 @@
             const nicknameStatCard = document.querySelector(".metric-nickname");
             const verifiedFilter = document.getElementById("filter-verified");
             const reportTab = document.querySelectorAll(".tab-button")[1]; // Tab de Reportar
+            const adminWipeBox = document.getElementById("admin-wipe-box");
 
             if (currentRole === "admin") {
                 if (configPanel) configPanel.style.display = "flex";
@@ -2065,6 +2214,7 @@
                 if (verifiedFilter) verifiedFilter.style.display = "inline-block";
                 if (filterChannel) filterChannel.style.display = "inline-block";
                 if (reportTab) reportTab.style.display = "flex";
+                if (adminWipeBox) adminWipeBox.style.display = "block";
             } else if (currentRole === "user") {
                 if (configPanel) configPanel.style.display = "none";
                 if (nicknameStatCard) nicknameStatCard.style.display = "none";
@@ -2077,6 +2227,7 @@
                     filterChannel.style.display = "none";
                 }
                 if (reportTab) reportTab.style.display = "flex";
+                if (adminWipeBox) adminWipeBox.style.display = "none";
             } else {
                 // guest — modo público
                 if (configPanel) configPanel.style.display = "none";
@@ -2090,6 +2241,7 @@
                     filterChannel.style.display = "none";
                 }
                 if (reportTab) reportTab.style.display = "flex";
+                if (adminWipeBox) adminWipeBox.style.display = "none";
             }
         }
 
